@@ -1,0 +1,9 @@
+flask --app flaskr init-db
+flask --app flaskr run --debug
+
+admin credentials
+admin@yopmail.com
+pw:master
+teacher credentials
+emily.johnson@yopmail.com
+pw:master

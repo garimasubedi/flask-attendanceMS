@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Add Batch</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="txtBatchYear">Batch year</label>
+                        <input type="text" class="form-control" id="txtBatchYear" name="txtBatchYear" value="{{ request.form['txtBatchYear'] }}" placeholder="2020" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtBatchIntake">Batch intake</label>
+                        <select class="custom-select" id="txtBatchIntake" name="txtBatchIntake">
+                            <option value="0" selected>Choose intake...</option>
+                            {% for intake in intake_list %}
+                            <option value="{{ intake }}">{{ intake }}</option>
+                            {% endfor %}
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtBatchName">Batch name</label>
+                        <input type="text" class="form-control" id="txtBatchName" name="txtBatchName" value="{{ request.form['txtBatchName'] }}" placeholder="2020-fall" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus-circle"></i>
+                        Save</button>
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}

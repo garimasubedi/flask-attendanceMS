@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Add Teacher</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="txtFirstName">First name</label>
+                        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" value="{{ request.form['txtFirstName'] }}" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLastName">Last name</label>
+                        <input type="text" class="form-control" id="txtLastName" name="txtLastName"  value="{{ request.form['txtLastName'] }}" placeholder="Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">Email address</label>
+                        <input type="email" class="form-control" id="txtEmail" name="txtEmail" value="{{ request.form['txtEmail'] }}" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPassword">Password</label>
+                        <input type="password" class="form-control" id="txtPassword" name="txtPassword" value="{{ request.form['txtPassword'] }}" placeholder="**********" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus-circle"></i>
+                        Save</button>
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}

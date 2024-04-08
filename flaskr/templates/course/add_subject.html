@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Add Subject</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="slcCourse">Course</label>
+                        <select class="custom-select" id="slcCourse" name="slcCourse">
+                            <option value="0" selected>Choose course...</option>
+                            {% for course in course_list %}
+                            <option value="{{ course['id'] }}">{{ course['course_name'] }}</option>
+                            {% endfor %}
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slcSubject">Subject</label>
+                        <select class="custom-select" id="slcSubject" name="slcSubject">
+                            <option value="0" selected>Choose subject...</option>
+                            {% for subject in subject_list %}
+                            <option value="{{ subject['id'] }}">{{ subject['subject_name'] }}</option>
+                            {% endfor %}
+                          </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus-circle"></i>
+                        Save</button>
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}

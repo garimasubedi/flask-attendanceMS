@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Student</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Student list</h6>
+    </div>
+    <div class="card-body">
+        <form id="form1" class="row align-middle ">
+            <div class="col ">
+                <div class="form-group row align-items-center">
+                    <label for="slcBatch" class="col text-right">Batch:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcBatch" name="slcBatch">
+                            <option value="0" selected>Choose batch...</option>
+                            {% for batch in batch_list %}
+                            <option value="{{ batch['id'] }}">{{ batch['batch_year'] }} - {{ batch['batch_name']
+                                }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcCourse" class="col text-right">Course:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcCourse" name="slcCourse">
+                            <option value="0" selected>Choose course...</option>
+                            {% for course in course_list %}
+                            <option value="{{ course['id'] }}">{{ course['course_name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcSubject" class="col text-right">Subject:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcSubject" name="slcSubject">
+                            <option value="0" selected>Choose subject...</option>
+                           
+                        </select>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcAttendanceDate" class="col text-right">Date:</label>
+                    <div class="col-8">
+                        <input type="date" class="custom-select form-control" id="slcAttendanceDate" name="slcAttendanceDate"  value="{{ today_date }}" max="{{ today_date }}">
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group row align-items-center">
+                    <div class="col">
+                        <span id="btnSearch" class="btn btn-warning btn-block"><i class="fas fa-search"></i>
+                            Search</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive tbl-student-list" style="display: none;">
+            <table class="table table-bordered" id="studet_dataTable1" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#Roll no</th>
+                        <th>Student Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#Roll no</th>
+                        <th>Student Name</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody id="div_student_list">
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="row tbl-student-list" style="display: none;">
+            
+            <div class="col-2">
+                <span id="btnCancel" class="btn btn-danger btn-block"><i class="fas fa-window-close"></i>
+                    Cancel</span>
+            </div>
+            <div class="col-2">
+                <span id="btnSubmit" class="btn btn-success btn-block"><i class="fas fa-upload"></i>
+                    Submit</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="divCheckMessage">
+          
+        </div>
+        <div class="modal-footer">
+          <span type="button" class="btn btn-danger" data-dismiss="modal">No</span>
+          <span type="button" class="btn btn-primary" id="btnTakeAttendance">Yes</span>
+        </div>
+      </div>
+    </div>
+  </div> -->
+{% endblock %}
+{% block scripts %}
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% endblock %}

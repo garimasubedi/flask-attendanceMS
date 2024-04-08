@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Add Subject</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="txtSubjectName">Subject name</label>
+                        <input type="text" class="form-control" id="txtSubjectName" name="txtSubjectName" value="{{ request.form['txtSubjectName'] }}" placeholder="Math" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSubjectCode">Subject code</label>
+                        <input type="text" class="form-control" id="txtSubjectCode" name="txtSubjectCode"  value="{{ request.form['txtSubjectCode'] }}" placeholder="MTH001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">Teacher</label>
+                        <select class="custom-select" id="slcTeacher" name="slcTeacher">
+                            <option value="0" selected>Choose teacher...</option>
+                            {% for teacher in teacher_list %}
+                            <option value="{{ teacher['id'] }}">{{ teacher['first_name'] }} {{ teacher['last_name'] }}</option>
+                            {% endfor %}
+                          </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus-circle"></i>
+                        Save</button>
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>
+    {% endblock %}

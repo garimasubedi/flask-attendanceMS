@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block stylesheets %}
+<link
+        href="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"
+        rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Student</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Student list</h6>
+        <div>
+            <a id="btnPrint" class="btn btn-info "><i class="fas fa-print px-2"></i>Print</a>
+            <a id="btnDownload" href="{{ url_for('attendance.download_excel', id=1) }}" class="btn btn-info"><i class="fas fa-file-download px-2"></i>Download</a>
+            <a id="btnSendMail" data-id="{{ attendance_id }}" class="btn btn-info"><i class="fas fa-envelope px-2"></i>Send Mail</a>
+        </div>
+    </div>
+    <div class="card-body" id="print-window-table">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="studet_attendance_datatable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student['id'] }} </td>
+                        <td>{{ student['student_name'] }}</td>
+                        
+                        {% if student['status'] == 1%}
+                        <td class="bg-success text-white">
+                            present
+                        </td>
+                        {% else %}
+                        <td class="bg-danger text-white">
+                            absent
+                        </td>
+                        {% endif %}
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="ta-loaderwrapper" style=" display: none; ">
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% endblock %}

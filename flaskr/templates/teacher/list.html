@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Teacher</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Teacher list</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td>{{ teacher['first_name'] }} {{ teacher['last_name'] }}</td>
+                        <td>{{ teacher['email'] }}</td>
+                        <td class="d-flex">
+                           
+                        
+                        <form action="{{ url_for('teacher.delete', id=teacher['id']) }}" method="post" >
+                            <a href="{{ url_for('teacher.update', id=teacher['id']) }}" class="btn btn-success btn-circle btn-sm p-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-circle btn-sm p-1" onclick="return confirm('Are you sure?');">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
