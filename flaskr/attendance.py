@@ -304,7 +304,7 @@ def send_attendance_mail():
         sender_email = EMAIL
         sender_password = PASSWORD
         receiver_email = teacher_email
-        subject = 'Student''s Attendance '
+        subject = 'Student' + 's Attendance '
         body = 'Please find attachment for attendance of student'
         attachment_path = get_create_excel_sheet(int(attendance_id))
         print(attachment_path)
