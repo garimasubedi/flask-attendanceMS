@@ -18,6 +18,15 @@ def index():
     return render_template('student/list.html', students=students)
 
 @bp.route('/add', methods=['GET','POST'])
+
+def get_batch_list():
+    batchs = get_db().execute(
+        'SELECT id,batch_year,batch_name'
+        ' FROM batch '
+    ).fetchall()
+    return batchs
+@bp.route('/add', methods=['GET','POST'])
+
 def add():
     if request.method == 'POST':
         first_name = request.form['txtFirstName']
