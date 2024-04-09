@@ -45,7 +45,7 @@ def add():
             
             cursor.execute(
                 'Insert into batch(batch_year,batch_intake,batch_name)'
-                ' VALUES (?, ?);',
+                ' VALUES (?, ?, ?);',
                 (batch_year,batch_intake, batch_name)
             )
             

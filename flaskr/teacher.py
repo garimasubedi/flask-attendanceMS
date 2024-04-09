@@ -46,7 +46,7 @@ def add():
             
             cursor.execute(
                 'Insert into user(username,role,password)'
-                ' VALUES (?, ?);',
+                ' VALUES (?, ?,?);',
                 (email,'teacher', password_hash)
             )
             db.commit()

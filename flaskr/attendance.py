@@ -20,8 +20,9 @@ from email import encoders
 bp = Blueprint('attendance', __name__, url_prefix='/attendance')
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-EMAIL = 'er.asheshshrestha@gmail.com'
-PASSWORD = 'wtcu yhvv fgkj mgqv'
+
+EMAIL = 'er.garimasubedi@gmail.com'
+PASSWORD = 'uppv fytq mcqr ztxl'
 
 @bp.route('/list', methods=['GET'])
 def index():
