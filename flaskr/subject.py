@@ -9,6 +9,7 @@ bp = Blueprint('subject', __name__, url_prefix='/subject')
 from flaskr.db import get_db
 from werkzeug.exceptions import abort
 from flaskr.auth import admin_login_required
+subject_index = "subject.index"
 
 @bp.route('/list', methods=['GET'])
 @admin_login_required
@@ -56,7 +57,7 @@ def add():
             )
             db.commit()
             flash("Successfully added new subject","success")
-            return redirect(url_for('subject.index'))
+            return redirect(url_for(subject_index))
     teacher_list = get_teacher_list()
     return render_template('subject/add.html',teacher_list= teacher_list)
 
@@ -89,7 +90,7 @@ def delete(id):
     db.execute('DELETE FROM subject WHERE id = ?', (id,))
     db.commit()
     flash("Successfully deleted subject","success")
-    return redirect(url_for('subject.index'))
+    return redirect(url_for(subject_index))
 
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
@@ -121,6 +122,6 @@ def update(id):
             )
             db.commit()
             flash("Successfully updated subject","success")
-            return redirect(url_for('subject.index'))
+            return redirect(url_for(subject_index))
 
     return render_template('subject/update.html', subject=subject,teacher_list=teacher_list)
