@@ -16,13 +16,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-from openpyxl import Workbook
 
 bp = Blueprint('attendance', __name__, url_prefix='/attendance')
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-EMAIL = 'er.garimasubedi@gmail.com'
-PASSWORD = 'uppv fytq mcqr ztxl'
+EMAIL = 'er.asheshshrestha@gmail.com'
+PASSWORD = 'wtcu yhvv fgkj mgqv'
 
 @bp.route('/list', methods=['GET'])
 def index():
@@ -304,7 +303,7 @@ def send_attendance_mail():
         sender_email = EMAIL
         sender_password = PASSWORD
         receiver_email = teacher_email
-        subject = 'Student' + 's Attendance '
+        subject = 'Student''s Attendance '
         body = 'Please find attachment for attendance of student'
         attachment_path = get_create_excel_sheet(int(attendance_id))
         print(attachment_path)
