@@ -3,7 +3,7 @@ import functools
 from flask import (
     Flask,Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
+from flaskr.course import get_course_list
 app = Flask(__name__)
 bp = Blueprint('student', __name__, url_prefix='/student')
 from flaskr.db import get_db
@@ -28,6 +28,8 @@ def get_batch_list():
 @bp.route('/add', methods=['GET','POST'])
 
 def add():
+    course_list = get_course_list()
+    batch_list = get_batch_list()
     if request.method == 'POST':
         first_name = request.form['txtFirstName']
         last_name = request.form['txtLastName']
@@ -53,7 +55,7 @@ def add():
             db.commit()
             flash("Successfully added new student","success")
             return redirect(url_for('student.index'))
-    return render_template('student/add.html')
+    return render_template('student/add.html',course_list=course_list,batch_list= batch_list)
 
 
 def get_student(id):

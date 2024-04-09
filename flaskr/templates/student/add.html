@@ -1,128 +1,159 @@
-{% extends 'base.html' %}
-
-{% block header %}
+{% extends 'base.html' %} {% block header %}
 <h1 class="h3 mb-2 text-gray-800">Add Student</h1>
 <p class="mb-4"></p>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <div class="row">
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-10 col-md-6 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-10 col-md-6 mb-4">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Form</h6>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="txtFirstName">First name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtFirstName"
+                  name="txtFirstName"
+                  value="{{ request.form['txtFirstName'] }}"
+                  placeholder="John"
+                  required
+                />
+              </div>
             </div>
-            <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="txtFirstName">First name</label>
-                                <input type="text" class="form-control" id="txtFirstName" name="txtFirstName"
-                                    value="{{ request.form['txtFirstName'] }}" placeholder="John" required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="txtLastName">Last name</label>
-                                <input type="text" class="form-control" id="txtLastName" name="txtLastName"
-                                    value="{{ request.form['txtLastName'] }}" placeholder="Doe" required>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-9">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="form-group">
-                                        <label for="txtEmail">Email address</label>
-                                        <input type="email" class="form-control" id="txtEmail" name="txtEmail"
-                                            value="{{ request.form['txtEmail'] }}" placeholder="name@example.com" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="txtEmail">Upload Image</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="txtFileUpload" name="txtFileUpload">
-                                            <label class="custom-file-label" for="txtFileUpload">Choose file</label>
-                                          </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="slcBatch">Batch</label>
-                                        <select class="custom-select" id="slcBatch" name="slcBatch">
-                                            <option value="0" selected>Choose batch...</option>
-                                            {% for batch in batch_list %}
-                                            <option value="{{ batch['id'] }}">{{ batch['batch_year'] }} - {{ batch['batch_name']
-                                                }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="slcCourse">Course</label>
-                                        <select class="custom-select" id="slcCourse" name="slcCourse">
-                                            <option value="0" selected>Choose course...</option>
-                                            {% for course in course_list %}
-                                            <option value="{{ course['id'] }}">{{ course['course_name'] }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                
-                                <img src="{{ url_for('static', filename='img/images.png') }}" class="" id="txtUploadedImage" alt="..." class="img-thumbnail" height="150" width="150">
-
-                            </div>
-                        </div>
-
-                    </div>
-                    
-
-
-                    <div class="row">
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus-circle"></i>
-                                Save</button>
-                        </div></div>
-                    
-                </form>
-
+            <div class="col">
+              <div class="form-group">
+                <label for="txtLastName">Last name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtLastName"
+                  name="txtLastName"
+                  value="{{ request.form['txtLastName'] }}"
+                  placeholder="Doe"
+                  required
+                />
+              </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-9">
+              <div class="row">
+                <div class="col-8">
+                  <div class="form-group">
+                    <label for="txtEmail">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="txtEmail"
+                      name="txtEmail"
+                      value="{{ request.form['txtEmail'] }}"
+                      placeholder="name@example.com"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="txtEmail">Upload Image</label>
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id="txtFileUpload"
+                        name="txtFileUpload"
+                      />
+                      <label class="custom-file-label" for="txtFileUpload"
+                        >Choose file</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="slcBatch">Batch</label>
+                    <select class="custom-select" id="slcBatch" name="slcBatch">
+                      <option value="0" selected>Choose batch...</option>
+                      {% for batch in batch_list %}
+                      <option value="{{ batch['id'] }}">
+                        {{ batch['batch_year'] }} - {{ batch['batch_name'] }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="slcCourse">Course</label>
+                    <select
+                      class="custom-select"
+                      id="slcCourse"
+                      name="slcCourse"
+                    >
+                      <option value="0" selected>Choose course...</option>
+                      {% for course in course_list %}
+                      <option value="{{ course['id'] }}">
+                        {{ course['course_name'] }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <img
+                  src="{{ url_for('static', filename='img/images.png') }}"
+                  class=""
+                  id="txtUploadedImage"
+                  alt="..."
+                  class="img-thumbnail"
+                  height="150"
+                  width="150"
+                />
+              </div>
+            </div>
+          </div>
 
-        </div>
+          <div class="row">
+            <div class="col-4">
+              <button type="submit" class="btn btn-success btn-block">
+                <i class="fas fa-plus-circle"></i> Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    {% endblock %}
-    {% block scripts %}
-    <script>
-        $(document).ready(function() {
-            $('#txtFileUpload').off('change').on('change',function() {
-                previewImage(this);
-            });
+  </div>
+  {% endblock %} {% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $("#txtFileUpload")
+        .off("change")
+        .on("change", function () {
+          previewImage(this);
         });
+    });
 
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    $('#txtUploadedImage').attr('src', e.target.result);
-            
-                }
-                
-                reader.readAsDataURL(input.files[0]); // convert to base64 string
-            }
-        }
-    </script>
-    {% endblock %}
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $("#txtUploadedImage").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+  </script>
+  {% endblock %}
+</div>
