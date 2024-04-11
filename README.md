@@ -16,27 +16,27 @@ Welcome to the Attendance Tracker System with Face Detection! This system provid
 
 1. Clone the repository to your local machine:
 
-    ```
-    git clone https://github.com/Asheshshrestha/Flask-attendance.git
-    ```
+   ```
+   git clone https://github.com/garimasubedi/flask-attendanceMS.git
+   ```
 
 2. Install dependencies:
 
-    ```
-    pip install -r requirements.txt
-    ```
+   ```
+   pip install -r requirements.txt
+   ```
 
 3. Set up the database:
 
-    ```
-    flask --app flaskr init-db
-    ```
+   ```
+   flask --app flaskr init-db
+   ```
 
 4. Run the development server:
 
-    ```
-    flask --app flaskr run --debug
-    ```
+   ```
+   flask --app flaskr run --debug
+   ```
 
 5. Access the system at `http://127.0.0.1:5000/` in your web browser.
 
@@ -47,7 +47,6 @@ Welcome to the Attendance Tracker System with Face Detection! This system provid
 3. **Attendance Tracking:** Users' attendance is automatically tracked when their faces are detected by the system.
 4. **Reporting:** Administrators can generate attendance reports and analyze attendance data.
 
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -56,7 +55,3 @@ This project is licensed under the [MIT License](LICENSE).
 
 - [OpenCV](https://opencv.org/) - Open Source Computer Vision Library
 - [dlib](http://dlib.net/) - C++ Library for Machine Learning & Computer Vision
-
-## Contact
-
-For inquiries or support, please contact [contact.asheshstha@gmail.com](mailto:contact.asheshstha@gmail.com).
