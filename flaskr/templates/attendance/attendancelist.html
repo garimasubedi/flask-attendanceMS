@@ -1,70 +1,85 @@
-{% extends 'base.html' %}
-
-{% block header %}
+{% extends 'base.html' %} {% block header %}
 <h1 class="h3 mb-2 text-gray-800">Attendance</h1>
 <p class="mb-4"></p>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Attendance list</h6>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Attendance list</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+        desc=""
+      >
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Batch</th>
+            <th>Course</th>
+            <th>Subject</th>
+            <th>Total student</th>
+            <th>Present student</th>
+            <th>Absent student</th>
+            <th>Submit by</th>
+            <th>Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Date</th>
+            <th>Batch</th>
+            <th>Course</th>
+            <th>Subject</th>
+            <th>Total student</th>
+            <th>Present student</th>
+            <th>Absent student</th>
+            <th>Submit by</th>
+            <th>Type</th>
+            <th>Action</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for att in attendance %}
+          <tr>
+            <td>{{ att['attendance_date'] }}</td>
+            <td>{{ att['batch_year'] }}</td>
+            <td>{{ att['course_name'] }}</td>
+            <td>{{ att['subject_name'] }}</td>
+            <td>
+              <span class="badge badge-pill badge-info"
+                >{{ att['total_student'] }}</span
+              >
+            </td>
+            <td>
+              <span class="badge badge-pill badge-success"
+                >{{ att['present_students'] }}</span
+              >
+            </td>
+            <td>
+              <span class="badge badge-pill badge-danger"
+                >{{ att['absent_students'] }}</span
+              >
+            </td>
+            <td>{{ att['created_by'] }}</td>
+            <td>{{ att['type'] }}</td>
+            <td class="d-flex">
+              <a
+                href="{{ url_for('attendance.student_list', id=att['id']) }}"
+                class="btn btn-success btn-circle btn-sm p-1"
+              >
+                <i class="fas fa-list"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Batch</th>
-                        <th>Course</th>
-                        <th>Subject</th>
-                        <th>Total student</th>
-                        <th>Present student</th>
-                        <th>Absent student</th>
-                        <th>Submit by</th>
-                        <th>Type</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Date</th>
-                        <th>Batch</th>
-                        <th>Course</th>
-                        <th>Subject</th>
-                        <th>Total student</th>
-                        <th>Present student</th>
-                        <th>Absent student</th>
-                        <th>Submit by</th>
-                        <th>Type</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    {% for att in attendance %}
-                    <tr>
-                        <td>{{ att['attendance_date'] }}</td>
-                        <td>{{ att['batch_year'] }}</td>
-                        <td>{{ att['course_name'] }}</td>
-                        <td>{{ att['subject_name'] }}</td>
-                        <td><span class="badge badge-pill badge-info">{{ att['total_student'] }}</span></td>
-                        <td><span class="badge badge-pill badge-success">{{ att['present_students'] }}</span></td>
-                        <td><span class="badge badge-pill badge-danger">{{ att['absent_students'] }}</span></td>
-                        <td>{{ att['created_by'] }}</td>
-                        <td>{{ att['type'] }}</td>
-                        <td class="d-flex">
-                           
-                            <a href="{{ url_for('attendance.student_list', id=att['id']) }}"
-                            class="btn btn-success btn-circle btn-sm p-1">
-                            <i class="fas fa-list"></i>
-                        </a>
-                       
-                    </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+  </div>
 </div>
 {% endblock %}

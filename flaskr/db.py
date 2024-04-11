@@ -23,6 +23,8 @@ def init_db():
 
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
+
+# When the command init -db runs
 @click.command('init-db')
 def init_db_command():
     """Clear the existing data and create new tables."""
