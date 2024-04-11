@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 
+from . import automatic_attenance
 
 def create_app(test_config=None):
     # create and configure the app
@@ -24,7 +25,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import dashboard,teacher,subject,student,auth,attendance,batch,course
+    from . import dashboard,teacher,subject,student,auth,attendance,batch,course,automatic_attenance
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
     app.register_blueprint(teacher.bp)
@@ -33,6 +34,7 @@ def create_app(test_config=None):
     app.register_blueprint(batch.bp)
     app.register_blueprint(course.bp)
     app.register_blueprint(attendance.bp)
+    app.register_blueprint(automatic_attenance.bp)
     from . import db
     db.init_app(app)
     

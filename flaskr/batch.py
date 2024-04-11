@@ -9,7 +9,7 @@ app = Flask(__name__)
 bp = Blueprint('batch', __name__, url_prefix='/batch')
 from flaskr.db import get_db
 from werkzeug.exceptions import abort
-batch_index = "batch.index"
+
 
 @bp.route('/list', methods=['GET'])
 @admin_login_required
@@ -45,12 +45,12 @@ def add():
             
             cursor.execute(
                 'Insert into batch(batch_year,batch_intake,batch_name)'
-                ' VALUES (?, ?, ?);',
+                ' VALUES (?, ?,?);',
                 (batch_year,batch_intake, batch_name)
             )
             
             flash("Successfully added new batch","success")
-            return redirect(url_for(batch_index))
+            return redirect(url_for('batch.index'))
     return render_template('batch/add.html',intake_list=intake_list)
 
 def get_batch(id):
@@ -96,7 +96,7 @@ def update(id):
             )
             db.commit()
             flash("Successfully updated batch","success")
-            return redirect(url_for(batch_index))
+            return redirect(url_for('batch.index'))
 
     return render_template('batch/update.html', batch=batch,intake_list=intake_list)
 @bp.route('/<int:id>/delete', methods=('POST',))
@@ -107,4 +107,4 @@ def delete(id):
     db.execute('DELETE FROM batch WHERE id = ?', (id,))
     db.commit()
     flash("Successfully deleted batch","success")
-    return redirect(url_for(batch_index))
+    return redirect(url_for('batch.index'))

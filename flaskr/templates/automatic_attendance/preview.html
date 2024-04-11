@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="h3 mb-2 text-gray-800">Automatic Attendance</h1>
+<p class="mb-4"></p>
+{% endblock %}
+{% block content %}
+<div class="row camera-preview">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-10 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Attendance Camera preview</h6>
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="row">
+                        <div class="col-8 w-100">
+                            <img id="video_feed" class="img-fluid"
+                                src="{{ url_for('static', filename='img/NoVideo.png') }}" height="80%">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-success btn-block" id="start_stream">Start Taking Attendance</button>
+                            <button class="btn btn-danger  btn-block" id="stop_stream" style="display:none;">Stop Taking
+                                Attendance</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row attendance-list card shadow mb-4" style="display: none;">
+   
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Student list</h6>
+    </div>
+    <div class="card-body">
+        <form id="form1" class="row align-middle ">
+            <div class="col ">
+                <div class="form-group row align-items-center">
+                    <label for="slcBatch" class="col text-right">Batch:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcBatch" name="slcBatch">
+                            
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcCourse" class="col text-right">Course:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcCourse" name="slcCourse">
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcSubject" class="col text-right">Subject:</label>
+                    <div class="col-8">
+                        <select class="custom-select" id="slcSubject" name="slcSubject">
+                    </select>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row align-items-center">
+                    <label for="slcAttendanceDate" class="col text-right">Date:</label>
+                    <div class="col-8">
+                        <input type="date" class="custom-select form-control" id="slcAttendanceDate" name="slcAttendanceDate">
+                    </div>
+                    
+
+                </div>
+            </div>
+           
+        </form>
+        <div class="table-responsive tbl-student-list">
+            <table class="table table-bordered" id="studet_dataTable1" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#Roll no</th>
+                        <th>Snapshot</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Confidence</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#Roll no</th>
+                        <th>Snapshot</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Confidence</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody id="div_student_list">
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="row tbl-student-list">
+            
+            <div class="col-2">
+                <span id="btnCancel" class="btn btn-danger btn-block"><i class="fas fa-window-close"></i>
+                    Cancel</span>
+            </div>
+            <div class="col-2">
+                <span id="btnSubmit" class="btn btn-success btn-block"><i class="fas fa-upload"></i>
+                    Submit</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/auto_attendance.js') }}"></script>
+<script type="text/javascript">
+    var video_feed_url = "{{ url_for('automatic_attendance.video_feed') }}";
+    var no_video_url = "{{ url_for('static', filename='img/NoVideo.png') }}"
+    $(function () {
+        $(this).AutoAttendanceManageFn();
+    });
+</script>
+{% endblock %}

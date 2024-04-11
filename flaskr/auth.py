@@ -8,7 +8,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-auth_login="auth.login"
 
 @bp.route('/notfound', methods=('GET', 'POST'))
 def notfound():
@@ -53,13 +52,13 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for(auth_login))
+    return redirect(url_for('auth.login'))
 
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for(auth_login))
+            return redirect(url_for('auth.login'))
 
         return view(**kwargs)
 
@@ -68,7 +67,7 @@ def admin_login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for(auth_login))
+            return redirect(url_for('auth.login'))
         elif g.user['role'] != 'admin':
             return redirect(url_for('auth.notfound'))
         return view(**kwargs)

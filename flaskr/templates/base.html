@@ -1,425 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <title>Attendance System</title>
 
     <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+        type="text/css">
     <link
-      href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link
-      href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='css/jquery-confirm.css') }}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='css/loader.css') }}"
-      rel="stylesheet"
-    />
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/jquery-confirm.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/loader.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link
-      href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css') }}"
-      rel="stylesheet"
-    />
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     {% block stylesheets %}{% endblock %}
-  </head>
 
-  <body>
+</head>
+
+<body>
     <!-- Page Wrapper -->
     <div id="wrapper">
-      <!-- Sidebar -->
-      <ul
-        class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-        id="accordionSidebar"
-      >
-        <!-- Sidebar - Brand -->
-        <a
-          class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="{{ url_for('dashboard.index') }}"
-        >
-          <div class="sidebar-brand-icon rotate-n-15">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="svg-icon"
-              style="
-                width: 3em;
-                height: 3em;
-                vertical-align: middle;
-                fill: currentColor;
-                overflow: hidden;
-              "
-              viewBox="0 0 1024 1024"
-              version="1.1"
-            >
-              <path
-                d="M868.215446 675.381068c0 0-34.121122-3.323699-79.70532-5.907547-2.863211 139.762137-25.734104 229.17147-73.224722 252.895801L715.285404 774.186398c10.866489-1.497097 19.332301-10.399861 19.332301-21.680788l0-22.044062c0-12.310374-9.911744-22.274306-22.223141-22.274306l-48.732911 0c-12.310374 0-22.222117 9.991562-22.222117 22.274306l0 22.044062c0 11.279904 8.468882 20.183691 19.332301 21.680788l0 148.182924c-47.490617-23.724331-70.385047-113.133663-73.224722-252.895801-45.579081 2.603291-79.704296 5.907547-79.704296 5.907547-50.605561 0-91.644233 41.019229-91.644233 91.607394l0 116.067482c0 50.639331 141.979642 73.330122 274.903024 73.330122 132.872217 0 268.766256-22.690792 268.766256-73.330122L959.867866 766.988462C959.84126 716.400297 918.829194 675.381068 868.215446 675.381068L868.215446 675.381068 868.215446 675.381068zM687.980525 674.482605c64.936965 0 164.930353-84.868923 164.930353-197.683315 0-109.00053-74.000388-197.658755-164.930353-197.658755-90.88187 0-164.877141 88.685855-164.877141 197.658755C523.102361 589.614705 623.116215 674.482605 687.980525 674.482605L687.980525 674.482605 687.980525 674.482605zM564.73148 432.6907c4.285606-7.17747 9.036817-14.32731 13.577227-20.572548 13.06148-17.937534 23.747867-35.951817 50.537 0 25.13854 33.789571 119.812783 52.733015 187.024557 54.874795 0.153496 3.276626 0.38681 6.529717 0.38681 9.807367 0 87.341231-78.773088 161.107281-128.302131 161.107281-49.480948 0-128.255059-73.766051-128.255059-161.107281C559.726489 461.494723 561.581744 446.733531 564.73148 432.6907L564.73148 432.6907 564.73148 432.6907zM307.02307 568.477292l-57.661258-42.429345 118.058836-118.031207L367.420649 216.629829l75.237565 0 0 216.216413L307.02307 568.477292zM672.235936 200.083991C595.656817 98.260931 464.363562 44.36851 331.593675 72.888054 149.420613 112.01826 33.455461 291.379277 72.585667 473.573829c29.937846 139.39784 142.035924 240.060471 274.700409 262.076904l52.190663-74.770937c-117.981065-1.216711-223.62515-83.733053-249.436002-203.928552-29.936823-139.376351 58.798151-276.661064 198.202131-306.577421 92.864014-19.952424 184.791703 12.803607 244.651023 78.102822L672.235936 200.083991 672.235936 200.083991 672.235936 200.083991zM672.235936 200.083991"
-              />
-            </svg>
-          </div>
-          <div class="sidebar-brand-text mx-3">ATS</div>
-        </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0" />
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('dashboard.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url_for('dashboard.index') }}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
+                        style="width: 3em; height: 3em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                        viewBox="0 0 1024 1024" version="1.1">
+                        <path
+                            d="M868.215446 675.381068c0 0-34.121122-3.323699-79.70532-5.907547-2.863211 139.762137-25.734104 229.17147-73.224722 252.895801L715.285404 774.186398c10.866489-1.497097 19.332301-10.399861 19.332301-21.680788l0-22.044062c0-12.310374-9.911744-22.274306-22.223141-22.274306l-48.732911 0c-12.310374 0-22.222117 9.991562-22.222117 22.274306l0 22.044062c0 11.279904 8.468882 20.183691 19.332301 21.680788l0 148.182924c-47.490617-23.724331-70.385047-113.133663-73.224722-252.895801-45.579081 2.603291-79.704296 5.907547-79.704296 5.907547-50.605561 0-91.644233 41.019229-91.644233 91.607394l0 116.067482c0 50.639331 141.979642 73.330122 274.903024 73.330122 132.872217 0 268.766256-22.690792 268.766256-73.330122L959.867866 766.988462C959.84126 716.400297 918.829194 675.381068 868.215446 675.381068L868.215446 675.381068 868.215446 675.381068zM687.980525 674.482605c64.936965 0 164.930353-84.868923 164.930353-197.683315 0-109.00053-74.000388-197.658755-164.930353-197.658755-90.88187 0-164.877141 88.685855-164.877141 197.658755C523.102361 589.614705 623.116215 674.482605 687.980525 674.482605L687.980525 674.482605 687.980525 674.482605zM564.73148 432.6907c4.285606-7.17747 9.036817-14.32731 13.577227-20.572548 13.06148-17.937534 23.747867-35.951817 50.537 0 25.13854 33.789571 119.812783 52.733015 187.024557 54.874795 0.153496 3.276626 0.38681 6.529717 0.38681 9.807367 0 87.341231-78.773088 161.107281-128.302131 161.107281-49.480948 0-128.255059-73.766051-128.255059-161.107281C559.726489 461.494723 561.581744 446.733531 564.73148 432.6907L564.73148 432.6907 564.73148 432.6907zM307.02307 568.477292l-57.661258-42.429345 118.058836-118.031207L367.420649 216.629829l75.237565 0 0 216.216413L307.02307 568.477292zM672.235936 200.083991C595.656817 98.260931 464.363562 44.36851 331.593675 72.888054 149.420613 112.01826 33.455461 291.379277 72.585667 473.573829c29.937846 139.39784 142.035924 240.060471 274.700409 262.076904l52.190663-74.770937c-117.981065-1.216711-223.62515-83.733053-249.436002-203.928552-29.936823-139.376351 58.798151-276.661064 198.202131-306.577421 92.864014-19.952424 184.791703 12.803607 244.651023 78.102822L672.235936 200.083991 672.235936 200.083991 672.235936 200.083991zM672.235936 200.083991" />
+                    </svg>
+                </div>
+                <div class="sidebar-brand-text mx-3">ATS</div>
+            </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseAttendance"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-book-reader"></i>
-            <span>Attendance</span>
-          </a>
-          <div
-            id="collapseAttendance"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a
-                class="collapse-item"
-                href="{{ url_for('attendance.takeattendance') }}"
-                >Take Attendance</a
-              >
-              <a class="collapse-item" href="{{ url_for('attendance.index') }}"
-                >List</a
-              >
-            </div>
-          </div>
-        </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        {% if g.user['role'] == 'admin' %}
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapsecourse"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-book-reader"></i>
-            <span>Curriculum</span>
-          </a>
-          <div
-            id="collapsecourse"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{ url_for('course.add') }}"
-                >Add Subject</a
-              >
-              <a class="collapse-item" href="{{ url_for('course.index') }}"
-                >Course</a
-              >
-            </div>
-          </div>
-        </li>
-        {% endif %} {% if g.user['role'] == 'admin' %}
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapsebatch"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-book-reader"></i>
-            <span>Batch</span>
-          </a>
-          <div
-            id="collapsebatch"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{ url_for('batch.add') }}">Add</a>
-              <a class="collapse-item" href="{{ url_for('batch.index') }}"
-                >List</a
-              >
-            </div>
-          </div>
-        </li>
-        {% endif %} {% if g.user['role'] == 'admin' %}
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseSubject"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i class="fas fa-book-reader"></i>
-            <span>Subject</span>
-          </a>
-          <div
-            id="collapseSubject"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{ url_for('subject.add') }}"
-                >Add</a
-              >
-              <a class="collapse-item" href="{{ url_for('subject.index') }}"
-                >List</a
-              >
-            </div>
-          </div>
-        </li>
-        {% endif %} {% if g.user['role'] == 'admin' %}
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseTeacher"
-            aria-expanded="true"
-            aria-controls="collapseTeacher"
-          >
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span>Teacher</span>
-          </a>
-          <div
-            id="collapseTeacher"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{ url_for('teacher.add') }}"
-                >Add</a
-              >
-              <a class="collapse-item" href="{{ url_for('teacher.index') }}"
-                >List</a
-              >
-            </div>
-          </div>
-        </li>
-        {% endif %}
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dashboard.index') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseStudent"
-            aria-expanded="true"
-            aria-controls="collapseStudent"
-          >
-            <i class="fas fa-user-graduate"></i>
-            <span>Student</span>
-          </a>
-          <div
-            id="collapseStudent"
-            class="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{ url_for('student.add') }}"
-                >Add</a
-              >
-              <a class="collapse-item" href="{{ url_for('student.index') }}"
-                >List</a
-              >
-            </div>
-          </div>
-        </li>
-        <hr class="sidebar-divider d-none d-md-block" />
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-      </ul>
-      <!-- End of Sidebar -->
-
-      <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
-          <!-- Topbar -->
-          <nav
-            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
-          >
-            <!-- Sidebar Toggle (Topbar) -->
-            <form class="form-inline">
-              <button
-                id="sidebarToggleTop"
-                class="btn btn-link d-md-none rounded-circle mr-3"
-              >
-                <i class="fa fa-bars"></i>
-              </button>
-            </form>
-
-            <ul class="navbar-nav ml-auto">
-              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-              <li class="nav-item dropdown no-arrow d-sm-none">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="searchDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-search fa-fw"></i>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAttendance"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="far fa-clipboard"></i>
+                    <span>Attendance</span>
                 </a>
-                <!-- Dropdown - Messages -->
-                <div
-                  class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                  aria-labelledby="searchDropdown"
-                >
-                  <form class="form-inline mr-auto w-100 navbar-search">
-                    <div class="input-group">
-                      <input
-                        type="text"
-                        class="form-control bg-light border-0 small"
-                        placeholder="Search for..."
-                        aria-label="Search"
-                        aria-describedby="basic-addon2"
-                      />
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                          <i class="fas fa-search fa-sm"></i>
-                        </button>
-                      </div>
+                <div id="collapseAttendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('attendance.takeattendance') }}">Take Attendance</a>
+                        <a class="collapse-item" href="{{ url_for('attendance.index') }}">List</a>
                     </div>
-                  </form>
                 </div>
-              </li>
+            </li> 
 
-              <div class="topbar-divider d-none d-sm-block"></div>
-
-              <!-- Nav Item - User Information -->
-              <li class="nav-item dropdown no-arrow">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="userDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >{{ g.user['username'] }} ({{ g.user['role'] }})</span
-                  >
-                  <img
-                    class="img-profile rounded-circle"
-                    src="https://ui-avatars.com/api/?name={{ g.user['username'] }}"
-                    alt=""
-                  />
+            {% if g.user['role'] == 'admin' %}
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecourse"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-university"></i>
+                    <span>Curriculum</span>
                 </a>
-                <!-- Dropdown - User Information -->
-                <div
-                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="userDropdown"
-                >
-                  <a class="dropdown-item" href="{{ url_for('auth.logout') }}">
-                    <i
-                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-                    ></i>
-                    Logout
-                  </a>
+                <div id="collapsecourse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('course.add') }}">Add Subject</a>
+                        <a class="collapse-item" href="{{ url_for('course.index') }}">Course</a>
+                    </div>
                 </div>
-              </li>
-            </ul>
-          </nav>
-          <!-- End of Topbar -->
+            </li>
+            {% endif %}
 
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-            {% with messages = get_flashed_messages(with_categories=true) %} {%
-            if messages %} {% for category, message in messages %}
-            <div
-              class="alert alert-{{ category }} alert-dismissible fade show"
-              role="alert"
-            >
-              {{ message }}
-              <button
-                type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+            {% if g.user['role'] == 'admin' %}
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsebatch"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Batch</span>
+                </a>
+                <div id="collapsebatch" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('batch.add') }}">Add</a>
+                        <a class="collapse-item" href="{{ url_for('batch.index') }}">List</a>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            {% if g.user['role'] == 'admin' %}
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubject"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-book-reader"></i>
+                    <span>Subject</span>
+                </a>
+                <div id="collapseSubject" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('subject.add') }}">Add</a>
+                        <a class="collapse-item" href="{{ url_for('subject.index') }}">List</a>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            {% if g.user['role'] == 'admin' %}
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeacher"
+                    aria-expanded="true" aria-controls="collapseTeacher">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Teacher</span>
+                </a>
+                <div id="collapseTeacher" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('teacher.add') }}">Add</a>
+                        <a class="collapse-item" href="{{ url_for('teacher.index') }}">List</a>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+                    aria-expanded="true" aria-controls="collapseStudent">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Student</span>
+                </a>
+                <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url_for('student.add') }}">Add</a>
+                        <a class="collapse-item" href="{{ url_for('student.index') }}">List</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            {% endfor %} {% endif %} {% endwith %}
 
-            <!-- Page Heading -->
-            {% block header %}{% endblock %} {% block content %}{% endblock %}
-          </div>
-          <!-- /.container-fluid -->
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ g.user['username'] }} ({{
+                                    g.user['role'] }})</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://ui-avatars.com/api/?name={{ g.user['username'] }}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+
+                    {% endif %}
+                    {% endwith %}
+
+                    <!-- Page Heading -->
+                    {% block header %}{% endblock %}
+                    {% block content %}{% endblock %}
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-        <!-- End of Main Content -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-            </div>
-          </div>
-        </footer>
-        <!-- End of Footer -->
-      </div>
-      <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
+        <i class="fas fa-angle-up"></i>
     </a>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
@@ -439,5 +303,6 @@
     <!-- Page level custom scripts -->
     <script src="{{ url_for('static', filename='js/demo/datatables-demo.js') }}"></script>
     {% block scripts %}{% endblock %}
-  </body>
+</body>
+
 </html>

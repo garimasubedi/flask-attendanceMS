@@ -336,40 +336,88 @@ $(document).ready(function() {
         if(data != null){
             disable_search();
             console.log(data)
-            let btntext = '';
-            let btncolor = '';
             if(data.statuscode == 1){
-                btncolor = 'btn-success';
-                btntext = 'Yes, get students!'
+                $.confirm({
+                    title: 'Confirm!',
+                    content: data.message,
+                    autoClose: 'cancel',
+                    columnClass: 'medium',
+                    buttons: {
+                        takeattendance:{
+                            text: 'Yes',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.confirm({
+                                    title: 'Confirm!',
+                                    content: 'Choose attendance taking method!',
+                                    autoClose: 'cancel',
+                                    columnClass: 'medium',
+                                    buttons: {
+                                        manual:{
+                                            text: 'Manual',
+                                            btnClass: 'btn-success',
+                                            action: function () {
+                
+                                                get_students();
+                                            }
+                                        },
+                                        automatic:{
+                                            text: 'Automatic',
+                                            btnClass: 'btn-success',
+                                            action: function () {
+                
+                                                take_automatic_attendance();
+                                            }
+                                        },
+                                        cancel: {
+                                            btnClass: 'btn-danger',
+                                            action: function () {
+                                                reset_search_form();
+                                            }
+                                        },
+                                    }
+                                });
+                            }
+                        },
+                        cancel: {
+                            btnClass: 'btn-danger',
+                            action: function () {
+                                reset_search_form();
+                            }
+                        },
+                    }
+                });
             }else{
-                btncolor = 'btn-warning';
-                btntext = 'Yes, get students anyway!'
+                $.confirm({
+                    title: 'Confirm!',
+                    content: data.message,
+                    autoClose: 'cancel',
+                    columnClass: 'medium',
+                    buttons: {
+                        takeattendance:{
+                            text: 'Yes, get students anyway!',
+                            btnClass: 'btn-warning',
+                            action: function () {
+
+                                get_students();
+                            }
+                        },
+                        cancel: {
+                            btnClass: 'btn-danger',
+                            action: function () {
+                                reset_search_form();
+                            }
+                        },
+                    }
+                });
             }
-            $.confirm({
-                title: 'Confirm!',
-                content: data.message,
-                autoClose: 'cancel',
-                columnClass: 'medium',
-                buttons: {
-                    takeattendance:{
-                        text: btntext,
-                        btnClass: btncolor,
-                        action: function () {
-                            get_students();
-                        }
-                    },
-                    cancel: {
-                        btnClass: 'btn-danger',
-                        action: function () {
-                            reset_search_form();
-                        }
-                    },
-                }
-            });
+            
         }
        
     }
-
+    function take_automatic_attendance(){
+        window.location.href = `/automatic_attendance/1/1/1/take_attendance`;
+    }
     function printDivByID(DivIdToPrint) {
 
         var divToPrint = document.getElementById(DivIdToPrint);

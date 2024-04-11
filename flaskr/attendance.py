@@ -16,13 +16,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-
-bp = Blueprint('attendance', __name__, url_prefix='/attendance')
+from flaskr.settings import EMAIL,PASSWORD
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-EMAIL = 'er.garimasubedi@gmail.com'
-PASSWORD = 'uppv fytq mcqr ztxl'
+bp = Blueprint('attendance', __name__, url_prefix='/attendance')
+
+
 
 @bp.route('/list', methods=['GET'])
 def index():
@@ -304,7 +304,7 @@ def send_attendance_mail():
         sender_email = EMAIL
         sender_password = PASSWORD
         receiver_email = teacher_email
-        subject = 'Student' + 's Attendance '
+        subject = 'Student\'s Attendance '
         body = 'Please find attachment for attendance of student'
         attachment_path = get_create_excel_sheet(int(attendance_id))
         print(attachment_path)

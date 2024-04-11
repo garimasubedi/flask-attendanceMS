@@ -122,13 +122,13 @@ INSERT INTO course_subject (course_id, subject_id) VALUES
 (3,3),
 (3,4);
 INSERT INTO student (first_name, last_name, email,batch_id,course_id,image) VALUES
-    ('John', 'Doe', 'john.doe@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Jane', 'Smith', 'jane.smith@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Michael', 'Johnson', 'michael.johnson@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Emily', 'Brown', 'emily.brown@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('David', 'Williams', 'david.williams@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Sarah', 'Jones', 'sarah.jones@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Daniel', 'Garcia', 'daniel.garcia@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Jennifer', 'Martinez', 'jennifer.martinez@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('James', 'Hernandez', 'james.hernandez@yopmail.com',1,1,'/static/img/profile/defaults.png'),
-    ('Jessica', 'Lopez', 'jessica.lopez@yopmail.com',1,1,'/static/img/profile/defaults.png');
+    ('John', 'Doe', 'john.doe@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Jane', 'Smith', 'jane.smith@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Michael', 'Johnson', 'michael.johnson@yopmail.com',1,1,'/static/img/profile/defaults.jpg'),
+    ('Emily', 'Brown', 'emily.brown@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('David', 'Williams', 'david.williams@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Sarah', 'Jones', 'sarah.jones@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Daniel', 'Garcia', 'daniel.garcia@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Jennifer', 'Martinez', 'jennifer.martinez@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('James', 'Hernandez', 'james.hernandez@yopmail.com',1,1,'/img/profile/defaults.jpg'),
+    ('Jessica', 'Lopez', 'jessica.lopez@yopmail.com',1,1,'/img/profile/defaults.jpg');
