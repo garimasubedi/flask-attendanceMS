@@ -4,7 +4,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     {% if g.user['role'] == 'teacher' %}
-    
+
     {% endif %}
     <a href="{{ url_for('attendance.takeattendance') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
         class="fas fa-clipboard-check text-white-50 mx-1"></i>Take Attendance</a>
@@ -14,25 +14,6 @@
 {% endblock %}
 {% block content %}
 <div class="row">
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total Teachers</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-chalkboard-teacher  fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
@@ -40,8 +21,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Student</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            Total Students</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ student_count.total_students}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-graduate  fa-2x text-gray-300"></i>
@@ -59,7 +40,24 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Subjects</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ subject_count.total_subjects}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-book-reader  fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Complete Classes</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ class_count.total_classes}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-book-reader  fa-2x text-gray-300"></i>
@@ -71,5 +69,136 @@
 
 
 </div>
+<div class="row">
 
+    <!-- Area Chart -->
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Daily Attendance</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="chartDaily"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Area Chart -->
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Weekly Attendance</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="chartWeekly"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Area Chart -->
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Monthly Attendance</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="chartMonthly"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+
+<script>
+    const ctx = document.getElementById('chartDaily');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: JSON.parse('{{ daily_attendance_data.labels | tojson | safe }}'),
+        datasets: [{
+          label: 'Attendance Count',
+          data: JSON.parse('{{ daily_attendance_data.counts | tojson | safe }}'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive:true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    const wctx = document.getElementById('chartWeekly');
+
+    new Chart(wctx, {
+      type: 'bar',
+      data: {
+        labels: JSON.parse('{{ weekly_attendance_data.labels | tojson | safe }}'),
+        datasets: [{
+          label: 'Attendance Count',
+          data: JSON.parse('{{ weekly_attendance_data.counts | tojson | safe }}'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive:true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    const mctx = document.getElementById('chartMonthly');
+
+    new Chart(mctx, {
+      type: 'bar',
+      data: {
+        labels: JSON.parse('{{ monthly_attendance_data.labels | tojson | safe }}'),
+
+        datasets: [{
+          label: 'Attendance Count',
+          data: JSON.parse('{{ monthly_attendance_data.counts | tojson | safe }}'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive:true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            barPercentage: 0.4
+          },
+          x:{
+            barThickness: 6,  // number (pixels) or 'flex'
+                maxBarThickness: 8
+          }
+        }
+      }
+    });
+  </script>
 {% endblock %}
