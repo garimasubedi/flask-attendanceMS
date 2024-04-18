@@ -3,16 +3,17 @@ import functools
 from flask import (
     Flask,Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
-app = Flask(__name__)
-bp = Blueprint('student', __name__, url_prefix='/student')
 from flaskr.db import get_db
 from flaskr.course import get_course_list
 from werkzeug.exceptions import abort
 import os
+app = Flask(__name__)
+bp = Blueprint('student', __name__, url_prefix='/student')
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_PATH = PROJECT_ROOT+ '\\static\\img\\profile'
 app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
+
+
 @bp.route('/list', methods=['GET'])
 def index():
     db = get_db()
@@ -23,12 +24,15 @@ def index():
     ).fetchall()
     return render_template('student/list.html', students=students)
 
+
 def get_batch_list():
     batchs = get_db().execute(
         'SELECT id,batch_year,batch_name'
         ' FROM batch '
     ).fetchall()
     return batchs
+
+
 @bp.route('/add', methods=['GET','POST'])
 def add():
     course_list = get_course_list()
@@ -127,6 +131,7 @@ def update(id):
             return redirect(url_for('student.index'))
 
     return render_template('student/update.html', student=student,course_list=course_list,batch_list= batch_list)
+
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 def delete(id):

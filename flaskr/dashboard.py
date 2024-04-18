@@ -58,7 +58,7 @@ def daily_attendance():
     return response
 
 
-def weekly_attendance ():
+def weekly_attendance():
     weekly_attendances  = get_db().execute(
         '''SELECT start_date || ' - ' || end_date AS week_range, COUNT(DISTINCT a.id) Count
             FROM (SELECT strftime("%W", attendance_date) AS week_number,MIN(attendance_date) AS start_date,MAX(attendance_date) AS end_date
@@ -71,7 +71,7 @@ def weekly_attendance ():
     return response
 
 
-def monthly_attendance  ():
+def monthly_attendance():
     monthly_attendances  = get_db().execute(
         'SELECT strftime("%Y-%m", attendance_date) AS month, COUNT(DISTINCT id) Count FROM attendance GROUP BY month'
     ).fetchall()

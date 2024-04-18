@@ -5,10 +5,11 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.auth import admin_login_required
-app = Flask(__name__)
-bp = Blueprint('course', __name__, url_prefix='/course')
 from flaskr.db import get_db
 from werkzeug.exceptions import abort
+
+app = Flask(__name__)
+bp = Blueprint('course', __name__, url_prefix='/course')
 
 
 @bp.route('/list', methods=['GET'])
@@ -23,6 +24,7 @@ def index():
     ).fetchall()
     return render_template('course/list.html', courses=courses)
 
+
 @bp.route('/<int:id>/list', methods=['GET'])
 @admin_login_required
 def subject_list(id):
@@ -35,6 +37,7 @@ def subject_list(id):
         ' WHERE c.id = ?',(id,)
     ).fetchall()
     return render_template('course/subject_list.html', subjects=subjects)
+
 
 def get_subject(id):
     subject = get_db().execute(
@@ -59,6 +62,7 @@ def delete(cid,id):
     flash("Successfully deleted subject","success")
     return redirect(url_for('course.subject_list',id=cid))
 
+
 def check_exist(course_id,subject_id):
     subject = get_db().execute(
         'SELECT id'
@@ -70,6 +74,8 @@ def check_exist(course_id,subject_id):
     if subject is not None:
         flash('already exist',"danger")
     return subject
+
+
 def get_course_list():
     post = get_db().execute(
         'SELECT id,course_name'
@@ -77,6 +83,8 @@ def get_course_list():
     ).fetchall()
 
     return post
+
+
 def get_subject_list():
     post = get_db().execute(
         'SELECT id,subject_name'
@@ -84,6 +92,8 @@ def get_subject_list():
     ).fetchall()
 
     return post
+
+
 @bp.route('/add', methods=['GET','POST'])
 @admin_login_required
 def add():

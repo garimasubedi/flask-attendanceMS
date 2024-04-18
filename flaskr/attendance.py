@@ -24,10 +24,11 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 EMAIL = 'er.garimasubedi@gmail.com'
 PASSWORD = 'uppv fytq mcqr ztxl'
 
+
 @bp.route('/list', methods=['GET'])
 def index():
     db = get_db()
-    attendance  = db.execute(
+    attendance = db.execute(
         '''select a.id,
             b.batch_year,
             c.course_name,
@@ -48,6 +49,8 @@ def index():
             GROUP BY a.id,b.batch_year,c.course_name,s.subject_name,a.attendance_date'''
     ).fetchall()
     return render_template('attendance/attendancelist.html', attendance=attendance)
+
+
 @bp.route('/<int:id>/list', methods=['GET'])
 def student_list(id):
     db = get_db()
@@ -65,6 +68,7 @@ def student_list(id):
     ).fetchall()
     return render_template('attendance/studentlist.html', students=students,attendance_id=id)
 
+
 def get_course_list():
     post = get_db().execute(
         'SELECT c.id,c.course_name'
@@ -76,6 +80,8 @@ def get_course_list():
         (g.user['id'],)
     ).fetchall()
     return post
+
+
 @bp.route('/get_subject_ddl', methods=['GET'])
 def get_subject_list_ddl():
     course_id = request.args.get('course_id', default='default_value', type=str)
@@ -90,12 +96,15 @@ def get_subject_list_ddl():
     ).fetchall()
     subject_list = [{'id': subject['id'],'subject_name': subject['subject_name']} for subject in subjects]
     return jsonify(subject_list)
+
+
 @bp.route('/takeattendance', methods=('GET', 'POST'))
 def takeattendance():
     batch_list = get_batch_list()
     course_list = get_course_list()
     today_date = datetime.today().date().strftime('%Y-%m-%d')
     return render_template('attendance/selectattendance.html',today_date=today_date,batch_list = batch_list,course_list=course_list)
+
 
 @bp.route('/checkattendance', methods=['GET'])
 def check_attendance():
@@ -110,6 +119,7 @@ def check_attendance():
         data = {'statuscode':1,'message': 'No attendance found, do you want to take attendance?'}
     return jsonify(data)
 
+
 def check_exist(batch_id,course_id,subject_id,attendance_date):
     flag = False
     attendance = get_db().execute(
@@ -122,6 +132,8 @@ def check_exist(batch_id,course_id,subject_id,attendance_date):
     if attendance is not None:
         flag = True
     return flag
+
+
 @bp.route('/getstudents', methods=['GET'])
 def getstudents():
     batch_id = request.args.get('batch_id', default='default_value', type=str)
@@ -158,6 +170,8 @@ def getstudents():
 
     student_ids = [{'id': student['id'],'first_name': student['first_name'],'last_name': student['last_name'],'status': student['status']} for student in students]
     return jsonify(student_ids)
+
+
 @bp.route('/submitattendance', methods=['POST'])
 def submitattendance():
     response = {'statuscode':0,'message':'error in saving data','data':None}
@@ -214,7 +228,6 @@ def submitattendance():
     return jsonify(response)
 
 
-
 @bp.route('/<int:id>/download-excel', methods=['GET'])
 def download_excel(id):
     excel_file = get_create_excel_sheet(id)
@@ -236,11 +249,9 @@ def get_create_excel_sheet(id):
 
         file_path = os.path.join(PROJECT_ROOT, relative_file_path)
 
-        #====================================================================================
-        #====================================================================================
         db = get_db()
         cursor = db.cursor()
-        data  = cursor.execute(
+        data = cursor.execute(
             ''' select st.id "Roll no.",
                 st.first_name || " "|| st.last_name "Student Name",
                 CASE 
@@ -257,8 +268,6 @@ def get_create_excel_sheet(id):
                 WHERE a.id = ?''',
                 (id,)
         ).fetchall()
-        #====================================================================================
-        #====================================================================================
         wb = Workbook()
         ws = wb.active
         # Write column headers to the first row of the worksheet
@@ -270,11 +279,11 @@ def get_create_excel_sheet(id):
         for row_index, row in enumerate(data, start=2):
             for col_index, value in enumerate(row, start=1):
                 ws.cell(row=row_index, column=col_index, value=value)
-        
 
         wb.save(file_path)
        
     return file_path
+
 
 def get_attendance_detail(id):
     
@@ -290,7 +299,6 @@ def get_attendance_detail(id):
         (id,)
     ).fetchone()
 
-    
     return attendance
 
 
@@ -315,16 +323,15 @@ def send_attendance_mail():
         response = {'statuscode':1,'message':'successfully send mail to mail id :'+ teacher_email,'data':teacher_email}
     return jsonify(response)
 
+
 def send_email(sender_email, sender_password, receiver_email, subject, body, attachment_path,file_name):
     message = MIMEMultipart()
     message['From'] = sender_email
     message['To'] = receiver_email
     message['Subject'] = subject
 
-    
     message.attach(MIMEText(body, 'plain'))
 
-    
     with open(attachment_path, 'rb') as attachment:
         part = MIMEBase('application', 'octet-stream')
         part.set_payload(attachment.read())
@@ -335,13 +342,10 @@ def send_email(sender_email, sender_password, receiver_email, subject, body, att
     message.attach(part)
     text = message.as_string()
 
-    
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(sender_email, sender_password)
 
-    
     server.sendmail(sender_email, receiver_email, text)
 
-    
     server.quit()

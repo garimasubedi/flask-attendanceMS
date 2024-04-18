@@ -5,10 +5,10 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.auth import admin_login_required
-app = Flask(__name__)
-bp = Blueprint('teacher', __name__, url_prefix='/teacher')
 from flaskr.db import get_db
 from werkzeug.exceptions import abort
+app = Flask(__name__)
+bp = Blueprint('teacher', __name__, url_prefix='/teacher')
 teacher_index = "teacher.index"
 
 
@@ -20,6 +20,7 @@ def index():
         'SELECT * FROM teacher'
     ).fetchall()
     return render_template('teacher/list.html', teachers=teachers)
+
 
 @bp.route('/add', methods=['GET','POST'])
 @admin_login_required
@@ -62,6 +63,7 @@ def add():
             flash("Successfully added new teacher","success")
             return redirect(url_for(teacher_index))
     return render_template('teacher/add.html')
+
 
 def get_teacher(id):
     post = get_db().execute(
@@ -108,6 +110,8 @@ def update(id):
             return redirect(url_for(teacher_index))
 
     return render_template('teacher/update.html', teacher=teacher)
+
+
 @bp.route('/<int:id>/delete', methods=('POST',))
 @admin_login_required
 def delete(id):

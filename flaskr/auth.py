@@ -10,9 +10,11 @@ from flaskr.db import get_db
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 auth_login="auth.login"
 
+
 @bp.route('/notfound', methods=('GET', 'POST'))
 def notfound():
     return render_template('auth/404.html')
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -40,6 +42,8 @@ def login():
         flash(error)
 
     return render_template('auth/login.html')
+
+
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -50,10 +54,13 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
+
+
 @bp.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for(auth_login))
+
 
 def login_required(view):
     @functools.wraps(view)
@@ -64,6 +71,8 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
 def admin_login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):

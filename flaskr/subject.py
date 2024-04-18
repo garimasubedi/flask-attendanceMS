@@ -3,13 +3,14 @@ import functools
 from flask import (
     Flask,Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
-app = Flask(__name__)
-bp = Blueprint('subject', __name__, url_prefix='/subject')
 from flaskr.db import get_db
 from werkzeug.exceptions import abort
 from flaskr.auth import admin_login_required
+
+app = Flask(__name__)
+bp = Blueprint('subject', __name__, url_prefix='/subject')
 subject_index = "subject.index"
+
 
 @bp.route('/list', methods=['GET'])
 @admin_login_required
@@ -22,6 +23,8 @@ def index():
     ).fetchall()
     
     return render_template('subject/list.html', subjects=subjects)
+
+
 def get_teacher_list():
     post = get_db().execute(
         'SELECT id,first_name, last_name, email'
@@ -29,6 +32,7 @@ def get_teacher_list():
     ).fetchall()
 
     return post
+
 
 @bp.route('/add', methods=['GET','POST'])
 @admin_login_required
@@ -61,6 +65,7 @@ def add():
     teacher_list = get_teacher_list()
     return render_template('subject/add.html',teacher_list= teacher_list)
 
+
 def get_subject(id):
     post = get_db().execute(
         'SELECT subject_name, subject_code, teacher_id'
@@ -72,8 +77,9 @@ def get_subject(id):
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
     return post
+
+
 def get_subject_list_ddl():
-   
     subjects = get_db().execute(
          'SELECT s.id, s.subject_name,s.subject_code'
          ' FROM  subject s'
@@ -81,6 +87,7 @@ def get_subject_list_ddl():
     ).fetchall()
     
     return subjects
+
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @admin_login_required
